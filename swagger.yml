@@ -1,0 +1,659 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with server code
+  version: "1.0.0"
+  title: Shopping List ReST App
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /products:
+    get:
+      operationId: products.read_all
+      tags:
+        - Products
+      summary: Read the entire list of products
+      description: Read the list of products
+
+      responses:
+        200:
+          description: Successfully read products list operation
+          schema:
+            type: array
+            items:
+              properties:
+                idproduct:
+                  type: integer
+                name:
+                  type: string
+                create_time:
+                  type: string
+                last_change:
+                  type: string
+                status:
+                  type: string
+                list_list_id:
+                  type: integer
+                user_user_id:
+                  type: integer
+                  
+
+    post:
+      operationId: products.create
+      tags:
+        - Products
+      summary: Create a product and add it to the products list
+      description: Create a new product in the products list
+      parameters:
+        - name: product
+          in: body
+          description: Product to create
+          required: True
+          schema:
+            type: object
+            properties:
+              idproduct:
+                type: integer
+                description: Id of a product to create
+              name:
+                type: string
+                description: Name of a product to create
+              create_time:
+                type: string
+                description: Creation timestamp
+              last_change:
+                type: string
+                description: Last change timestamp
+              status:
+                type: string
+                description: Product state
+              list_list_id:
+                type: integer
+                description: Id of a list which the product is the part of
+              user_user_id:
+                type: integer
+                description: Id of a user creating the product
+                
+
+      responses:
+        201:
+          description: Successfully created product in list
+          schema:
+            properties:
+              idproduct:
+                type: integer
+                description: Id of a product to create
+              name:
+                type: string
+                description: Name of a product to create
+              create_time:
+                type: string
+                description: Creation timestamp
+              last_change:
+                type: string
+                description: Last change timestamp
+              status:
+                type: string
+                description: Product state
+              list_list_id:
+                type: integer
+                description: Id of a list which the product is the part of
+              user_user_id:
+                type: integer
+                description: Id of a user creating the product
+
+  /products/{idproduct}:
+    put:
+      operationId: products.update
+      tags:
+        - Products
+      summary: Update a product in the products list
+      description: Update a product in the products list
+      parameters:
+        - name: idproduct
+          in: path
+          description: Id of the product to update in the list
+          type: integer
+          required: True
+        - name: product
+          in: body
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Name of a product to create
+              last_change:
+                type: string
+                description: Last change timestamp
+              status:
+                type: string
+                description: Product status
+  
+      responses:
+        200:
+          description: Successfully updated product in products list
+
+    delete:
+      operationId: products.delete
+      tags:
+        - Products
+      summary: Delete a product from the products list
+      description: Delete a product
+      parameters:
+        - name: idproduct
+          in: path
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a product from people list
+
+  /products/{list_id}:
+    get:
+      operationId: products.read_from_list
+      tags:
+        - Products
+      summary: Read products from list
+      description: Read products from list
+      parameters:
+        - name: list_id
+          in: path
+          type: integer
+          description: Id of a list
+          required: True
+      responses:
+        200:
+          description: Successfully read products from list
+          schema:
+            type: array
+            items:
+              properties:
+                idproduct:
+                  type: integer
+                  description: Id of a product to create
+                name:
+                  type: string
+                  description: Name of a product to create
+                create_time:
+                  type: string
+                  description: Creation timestamp
+                last_change:
+                  type: string
+                  description: Last change timestamp
+                status:
+                  type: string
+                  description: Product state
+                list_list_id:
+                  type: integer
+                  description: Id of a list which the product is the part of
+                user_user_id:
+                  type: integer
+                  description: Id of a user creating the product
+
+  /users:
+    get:
+      operationId: users.read_all
+      tags:
+        - Users
+      summary: Read the entire list of users
+      description: Read the list of users
+
+      responses:
+        200:
+          description: Successfully read users list operation
+          schema:
+            type: array
+            items:
+              properties:
+                user_id:
+                  type: integer
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                create_time:
+                  type: string
+
+
+    
+      
+    post:
+      operationId: users.create
+      tags:
+        - Users
+      summary: Create a user and add it to the users list
+      description: Create a new user in the users list
+      parameters:
+        - name: user
+          in: body
+          description: User to create
+          required: True
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+                description: Id of a user to create
+              username:
+                type: string
+                description: Name of a user to create
+              email:
+                type: string
+                description: Email
+              password:
+                type: string
+                description: Password
+              create_time:
+                type: string
+                description: Timestamp
+    
+      responses:
+        201:
+          description: Successfully created user in list
+          schema:
+            properties:
+              user_id:
+                type: integer
+                description: Id of a user to create
+              username:
+                type: string
+                description: Name of a user to create
+              email:
+                type: string
+                description: Email
+              password:
+                type: string
+                description: Password
+              create_time:
+                type: string
+                description: Timestamp
+
+  
+  
+  /users/{user_id}:       
+    
+    put:
+      operationId: users.update
+      tags:
+        - Users
+      summary: Update a user in the users list
+      description: Update a user in the users list
+      parameters:
+        - name: user_id
+          in: path
+          description: Id of the user to update in the list
+          type: integer
+          required: True
+        - name: user
+          in: body
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+                description: Name of a user to create
+              email:
+                type: string
+                description: Email
+              password:
+                type: string
+                description: Password
+      responses:
+        200:
+          description: Successfully updated user in products list
+
+
+    delete:
+      operationId: users.delete
+      tags:
+        - Users
+      summary: Delete a user from the users list
+      description: Delete a user
+      parameters:
+        - name: user_id
+          in: path
+          type: integer
+          description: Id of the user to delete
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a user from users list       
+    
+
+  /lists:
+    get:
+      operationId: lists.read_all
+      tags:
+        - Lists
+      summary: Read the entire list of lists
+      description: Read the list of products
+      
+
+      responses:
+        200:
+          description: Successfully read products list operation
+          schema:
+            type: array
+            items:
+              properties:
+                list_id:
+                  type: integer
+                name:
+                  type: string
+                user_user_id:
+                  type: integer
+
+    post:
+      operationId: lists.create
+      tags:
+        - Lists
+      summary: Create a list and add it to the lists list
+      description: Create a new list in the lists list
+      parameters:
+        - name: list
+          in: body
+          description: List to create
+          required: True
+          schema:
+            type: object
+            properties:
+              list_id:
+                type: integer
+                description: id of list
+              name:
+                type: string
+                description: name of a list
+              user_user_id:
+                type: integer
+                description: id of a user creating a list
+        
+      responses:
+        201:
+          description: Successfully created list
+          schema:
+            properties:
+              list_id:
+                type: integer
+                description: id of list
+              name:
+                type: string
+                description: name of a list
+              user_user_id:
+                type: integer
+                description: id of a user creating a list
+
+  /lists/{list_id}:
+
+
+    put:
+      operationId: lists.update
+      tags:
+        - Lists
+      summary: Update a list in the lists list
+      description: Update a list in the lists list
+      parameters:
+        - name: list_id
+          in: path
+          description: Id of the list to update in the list
+          type: integer
+          required: True
+        - name: user
+          in: body
+          schema:
+            type: object
+            properties:
+              list_id:
+                type: integer
+                description: id of list
+              name:
+                type: string
+                description: name of a list
+              user_user_id:
+                type: integer
+                description: id of a user creating a list
+
+      responses:
+        200:
+          description: Successfully updated list in products list
+
+
+
+
+    delete:
+      operationId: lists.delete
+      tags:
+        - Lists
+      summary: Delete a list from the lists list
+      description: Delete a list
+      parameters:
+        - name: list_id
+          in: path
+          type: integer
+          description: Id of the list to delete
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a list from lists list
+
+  /lists/{user_id}:
+    get:
+      operationId: lists.read_users_lists
+      tags:
+        - Lists
+      summary: Read users lists
+      description: Raed users lists
+      parameters:
+        - name: user_id
+          in: path
+          type: integer
+          description: Id of a user
+          required: True
+      responses:
+        200:
+          description: Successfully read users lists
+          schema:
+            type: array
+            items:
+              properties:
+                list_id:
+                  type: integer
+                name:
+                  type: string
+                user_user_id:
+                  type: integer
+
+
+
+  /subscriptions:
+    get:
+      operationId: subscriptions.read_all
+      tags:
+        - Subscriptions
+      summary: Read the entire list of subscriptions
+      description: Read the list of subscriptions
+      
+
+      responses:
+        200:
+          description: Successfully read subscriptions list operation
+          schema:
+            type: array
+            items:
+              properties:
+                user_user_id:
+                  type: integer
+                list_list_id:
+                  type: integer
+
+    post:
+      operationId: subscriptions.create
+      tags:
+        - Subscriptions
+      summary: Create a subscription and add it to the subscriptions list
+      description: Create a new subscription in the subscriptions list
+      parameters:
+        - name: subscription
+          in: body
+          description: Subscription to create
+          required: True
+          schema:
+            type: object
+            properties:
+              user_user_id:
+                type: integer
+                description: id of a user
+              list_list_id:
+                type: integer
+                description: id of a list
+        
+      responses:
+        201:
+          description: Successfully created a subscription
+          schema:
+            properties:
+              user_user_id:
+                type: integer
+                description: id of a user
+              list_list_id:
+                type: integer
+                description: id of a list
+
+  /subscriptions/{user_id}/{list_id}:
+
+
+    delete:
+      operationId: subscriptions.delete
+      tags:
+        - Subscriptions
+      summary: Delete a subscription from the subscriptions list
+      description: Delete a subscription
+      parameters:
+        - name: user_id
+          in: path
+          type: integer
+          description: Id of a user
+          required: True
+        - name: list_id
+          in: path
+          type: integer
+          description: Id of a list
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a subscription from subscriptions list
+
+  /subscriptions/{user_id}:
+    get:
+      operationId: subscriptions.read_users_subscriptions
+      tags:
+        - Subscriptions
+      summary: Read users subscriptions
+      description: Raed users subscriptions
+      parameters:
+        - name: user_id
+          in: path
+          type: integer
+          description: Id of a user
+          required: True
+      responses:
+        200:
+          description: Successfully read users lists
+          schema:
+            type: array
+            items:
+              properties:
+                user_user_id:
+                  type: integer
+                list_list_id:
+                  type: integer
+
+  /boughtprocedure/{list_id}:
+    put:
+      operationId: products.bought_procedure
+      tags:
+        - Products
+      summary: Change status to bought
+      description: Change status to bought
+      parameters:
+        - name: list_id
+          in: path
+          description: Id of a list
+          type: integer
+          required: True
+  
+      responses:
+        200:
+          description: Successfully change status to 'bought'
+
+  /toBuyprocedure/{list_id}:
+    put:
+      operationId: products.to_buy_procedure
+      tags:
+        - Products
+      summary: Change status to toBuy
+      description: Change status to toBuy
+      parameters:
+        - name: list_id
+          in: path
+          description: Id of a list
+          type: integer
+          required: True
+  
+      responses:
+        200:
+          description: Successfully change status to 'toBuy'
+
+
+  /advert:
+    get:
+      operationId: products.advert
+      tags:
+        - Products
+      summary: Get the most recent demands
+      description: Get the most recent demands
+      responses:
+        200:
+          description: Successfully read users lists
+          schema:
+            type: array
+            items:
+              properties:
+                username:
+                  type: string
+                name:
+                  type: string
+
+  /most_recent/{list_id}:
+    get:
+      operationId: products.most_recent
+      tags:
+        - Products
+      summary: Get the most recent demands
+      description: Get the most recent demands
+      parameters:
+        - name: list_id
+          in: path
+          type: integer
+          description: Id of a user
+          required: True
+      responses:
+        200:
+          description: Successfully read users lists
+          schema:
+            type: array
+            items:
+              properties:
+                username:
+                  type: string
+                name:
+                  type: string
+                date:
+                  type: string
